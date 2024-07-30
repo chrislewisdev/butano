@@ -100,10 +100,10 @@ namespace
 
     constexpr int _max_channels = BN_CFG_AUDIO_MAX_MUSIC_CHANNELS + BN_CFG_AUDIO_MAX_SOUND_CHANNELS;
 
-    alignas(int) BN_DATA_EWRAM_BSS uint8_t maxmod_engine_buffer[
-            _max_channels * (MM_SIZEOF_MODCH + MM_SIZEOF_ACTCH + MM_SIZEOF_MIXCH) + _mix_length()];
+    // alignas(int) BN_DATA_EWRAM_BSS uint8_t maxmod_engine_buffer[
+    //         _max_channels * (MM_SIZEOF_MODCH + MM_SIZEOF_ACTCH + MM_SIZEOF_MIXCH) + _mix_length()];
 
-    alignas(int) uint8_t maxmod_mixing_buffer[_mix_length()];
+    // alignas(int) uint8_t maxmod_mixing_buffer[_mix_length()];
 
 
     void _check_sounds_queue()
@@ -162,7 +162,7 @@ namespace
 
     void _commit()
     {
-        mmFrame();
+        /*mmFrame();
 
         if(data.dmg_music_type == dmg_music_type::GBT_PLAYER)
         {
@@ -179,7 +179,7 @@ namespace
             #else
                 VgmIntrVblank();
             #endif
-        }
+        }*/
     }
 
     void _vblank_handler()
@@ -199,10 +199,10 @@ void init()
 {
     new(&data) static_data();
 
-    irq::set_isr(irq::id::VBLANK, mmVBlank);
+    // irq::set_isr(irq::id::VBLANK, mmVBlank);
     irq::enable(irq::id::VBLANK);
 
-    mm_gba_system maxmod_info;
+    /*mm_gba_system maxmod_info;
     maxmod_info.mixing_mode = mm_mixmode(BN_CFG_AUDIO_MIXING_RATE);
     maxmod_info.mod_channel_count = _max_channels;
     maxmod_info.mix_channel_count = _max_channels;
@@ -216,13 +216,13 @@ void init()
     maxmod_info.soundbank = mm_addr(_bn_audio_soundbank_bin);
     mmInit(&maxmod_info);
 
-    mmSetVBlankHandler(reinterpret_cast<void*>(_vblank_handler));
+    mmSetVBlankHandler(reinterpret_cast<void*>(_vblank_handler));*/
 }
 
 void enable()
 {
-    REG_SNDDMGCNT = data.dmg_control_value;
-    REG_SNDDSCNT = data.direct_sound_control_value;
+    // REG_SNDDMGCNT = data.dmg_control_value;
+    // REG_SNDDSCNT = data.direct_sound_control_value;
 
     irq::enable(irq::id::VBLANK);
 }
